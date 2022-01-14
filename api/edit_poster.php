@@ -9,6 +9,7 @@ foreach($_POST['id'] as $key => $id){
         $po['ani']=$_POST['ani'][$key];
         $po['sh']=(isset($_POST['id']) && in_array($id,$_POST['sh']))?1:0;
         
+        
         $Poster->save($po);
 
     }
