@@ -1,4 +1,4 @@
-<button>新增電影</button>
+<button onclick="location.href='?do=add_movie'">新增電影</button>
 <hr>
 <div style="display:flex;width:100%">
     <div>
@@ -17,8 +17,8 @@
             <button>顯示</button>
             <button>往上</button>
             <button>往下</button>
-            <button>編輯</button>
-            <button>刪除</button>
+            <button>編輯電影</button>
+            <button>刪除電影</button>
         </div>
         <div>劇情介紹:</div>
     </div>
