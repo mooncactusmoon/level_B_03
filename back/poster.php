@@ -36,8 +36,8 @@
             </div>
             <div style="width:25%;">
             <!-- 用button才不會被form送出 -->
-            <input type="button" value="往上" data-sw="<?=$up;?>"> 
-            <input type="button" value="往下" data-sw="<?=$down;?>"> 
+            <input type="button" class="sw" value="往上" data-sw="<?=$up;?>"> 
+            <input type="button" class="sw" value="往下" data-sw="<?=$down;?>"> 
             
             </div>
             <div style="width:25%;">
@@ -82,3 +82,13 @@
         </div>
     </form>
 </div>
+
+<script>
+    $(".sw").click(function(){
+        let id=$(this).data("sw").split("-");
+        // console.log(id);
+        $.post("api/sw.php",{id,table:"poster"},()=>{
+            location.reload(); //相當於按下F5
+        }) //用post才能傳遞陣列
+    })
+</script>
