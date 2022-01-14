@@ -21,7 +21,9 @@ foreach($mos as $key => $movie){
             <div style="width:33%">上映時間:<?=$movie['ondate'];?></div>
         </div>
         <div style="text-align:right">
-            <button>顯示</button>
+            <button class="show" data-id="<?=$movie['id'];?>">
+                <?=($movie['sh']==1)?"顯示":"隱藏";?>
+            </button>
             <button>往上</button>
             <button>往下</button>
             <button onclick="location.href='?do=edit_movie&id=<?=$movie['id'];?>'">編輯電影</button>
@@ -35,3 +37,12 @@ foreach($mos as $key => $movie){
 
 ?>
 </div>
+
+<script>
+    $(".show").on("click",function(){
+        let id=$(this).data("id");
+        $.post("api/show.php",{id},()=>{
+            location.reload();
+        })
+    });
+</script>
