@@ -45,4 +45,16 @@ foreach($mos as $key => $movie){
             location.reload();
         })
     });
+    /*$(".show").on("click",function(e){
+        let id=$(e.target).data("id");
+        $.post("api/show.php",{id},()=>{
+            location.reload();
+        })
+    });*/
+    /*$(".show").on("click",(e)=>{
+        let id=$(e.target).data("id");
+        $.post("api/show.php",{id},()=>{
+            location.reload();
+        })
+    });*/
 </script>
