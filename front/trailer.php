@@ -16,7 +16,7 @@
     width: 100%;
     text-align: center;
     display: none;
-    position:absolute;
+    position: absolute;
   }
 
   .po img,
@@ -43,9 +43,10 @@
 
   .icon {
     width: 80px;
-    flex-shrink:0;
-    padding:5px;
+    flex-shrink: 0;
+    padding: 5px;
     position: relative;
+    cursor: pointer;
   }
 
   .left {
@@ -93,14 +94,14 @@
       <div class="controls">
         <div class="left"></div>
         <div class="icons">
-        <?php
-        foreach ($pos as $key => $po) {
-          echo "<div class='icon' data-ani='{$po['ani']}'>";
-          echo "<img src='img/{$po['path']}'>";
-          echo $po['name'];
-          echo "</div>";
-        }
-        ?>
+          <?php
+          foreach ($pos as $key => $po) {
+            echo "<div class='icon' data-ani='{$po['ani']}'>";
+            echo "<img src='img/{$po['path']}'>";
+            echo $po['name'];
+            echo "</div>";
+          }
+          ?>
         </div>
         <div class="right"></div>
       </div>
@@ -112,22 +113,22 @@
   $(".po").eq(0).show();
 
   let i = 0;
-  let all=$('.po').length; //知道總共幾張
+  let all = $('.po').length; //知道總共幾張
   console.log(all);
   let slides = setInterval(() => {
-    
+
     i++;
-    if(i>all-1){
-      i=0;
+    if (i > all - 1) {
+      i = 0;
     }
     ani(i); //指的是下一張的動畫
-    
+
   }, 2500);
 
   function ani(n) {
-    let ani=$(".po").eq(n).data('ani');
-    let now=$(".po:visible");
-    let next=$(".po").eq(n);
+    let ani = $(".po").eq(n).data('ani');
+    let now = $(".po:visible");
+    let next = $(".po").eq(n);
 
     switch (ani) {
       case 1:
@@ -135,38 +136,55 @@
         now.fadeOut(1000);
         next.fadeIn(1000);
         break;
-        
-        case 2:
-          //縮放
-          now.hide(1000,function(){
-            next.show(1000);
-          });
+
+      case 2:
+        //縮放
+        now.hide(1000, function() {
+          next.show(1000);
+        });
         break;
 
       case 3:
         //滑入滑出
-        now.slideUp(1000,function(){
+        now.slideUp(1000, function() {
           next.slideDown(1000);
         });
         break;
     }
   }
 
-  let p=0;
-  $(".left,.right").on("click",function(){
-     if($(this).hasClass('left')){
+  let p = 0;
+  $(".left,.right").on("click", function() {
+    if ($(this).hasClass('left')) {
       //有的話左邊
-      if(p-1>=0){
+      if (p - 1 >= 0) {
         p--;
       }
-      
-    }else{
+
+    } else {
       //沒有的話右邊
-      if(p+1<=all-4){
+      if (p + 1 <= all - 4) {
         p++;
       }
-      
-     }
-     $(".icon").animate({right:p*80},500);
+
+    }
+    $(".icon").animate({
+      right: p * 80
+    }, 500);
   })
+
+  $(".icon").on("click", function() {
+    clearInterval(slides);
+    let idx = $(this).index();
+    ani(idx);
+    
+    i=idx; //點擊後換成下一個開始輪播
+    slides = setInterval(() => {
+      i++;
+      if (i > all - 1) {
+        i = 0;
+      }
+      ani(i);
+    }, 2500);
+  });
 </script>
