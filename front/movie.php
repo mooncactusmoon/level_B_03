@@ -45,14 +45,15 @@
                             <img src="img/<?=$row['poster'];?>" alt="" width="50px" height="50px">
                         </div>
                         <div>
-                            <div>分級:<?=$row['level'];?></div>
+                            <div>分級:<img src="icon/<?=$row['level'];?>.png" alt="">
+                                <?=$Movie->level($row['level']);?></div>
                             <div>上映日期:<?=$row['ondate'];?></div>
                         </div>
                     </div>
                     <div></div>
                     <div>
-                        <button>電影簡介:</button>
-                        <button>線上訂票</button>
+                        <button onclick="location.href='?do=intro&id=<?=$row['id'];?>'">電影簡介</button>
+                        <button onclick="location.href='?do=order&id=<?=$row['id'];?>'">線上訂票</button>
                     </div>
                 </div>
             <?php
