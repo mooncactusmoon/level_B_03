@@ -5,6 +5,11 @@ $movie=$Movie->find($_GET['id']);
 $date=$_GET['date'];
 $session=$ss[$_GET['session']];
 
+$ords=$Ord->all(['movie'=>$movie['name'],'date'=>$date,'session'=>$session]);
+$seats=[];
+foreach($ords as $ord){
+    $seats=array_merge($seats,unserialize($ord['seat']));
+}
 ?>
 <style>
     #seats{
@@ -47,11 +52,15 @@ $session=$ss[$_GET['session']];
 <div id="seats">
     <?php
     for($i=0;$i<20;$i++){
-        echo "<div class='seat null'>";
+        $booked=in_array($i,$seats)?"booked":"null";
+        echo "<div class='seat $booked'>";
         echo "<div class='ct'>";
         echo (floor($i/5)+1)."排".($i%5 +1)."號";
         echo "</div>";
-        echo "<input type='checkbox' class='check' name='check' value='$i'>";
+        if(!in_array($i,$seats)){
+            echo "<input type='checkbox' class='check' name='check' value='$i'>";
+
+        }
         echo "</div>";
     }
     ?>
@@ -64,7 +73,7 @@ $session=$ss[$_GET['session']];
     <div>您已經勾選了<span id="tickets"></span>張票，最多可以購賣四張票</div>
     <div>
         <button onclick="prev()">回上一部</button>
-        <button>完成訂購</button>
+        <button onclick="order()">完成訂購</button>
     </div>
 </div>
 
@@ -87,4 +96,15 @@ $session=$ss[$_GET['session']];
       $("#tickets").text(seats.length);
         console.log(seats);
     })
+
+    function order(){
+        let order={id:$("#movie").val(),
+                   date:$("#date").val(),
+                   session:$("#session").val(),
+                   seats}//seat:seats 因為是陣列直接簡化
+
+        $.post('api/order.php',order,(result)=>{
+            $("#mm").html(result);
+        });
+    }
 </script>
