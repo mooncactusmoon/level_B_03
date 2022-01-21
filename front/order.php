@@ -56,6 +56,9 @@ let id=(new URL(location)).searchParams.get('id');
 getMovies(id)
 
 $("#movie").on("change",()=>{getDays()});
+$("#date").on("change",()=>{getSessions()});
+
+
 
 function booking(){
     $("#booking,#order").toggle();
@@ -66,6 +69,7 @@ function booking(){
     $.get("api/booking.php",order,(booking)=>{
         $("#booking").html(booking);
     })
+
 }
 
 function reset(){
