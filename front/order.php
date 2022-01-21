@@ -39,13 +39,16 @@
     </div>
     <div class="row">
         <div class="ct" style="width:100%">
-            <button>確定</button>
-            <button>重製</button>
+            <button onclick="booking()">確定</button>
+            <button onclick="reset()">重製</button>
         </div>
     </div>
 
 </div>
 
+<div id="booking" style="display:none">
+    畫位
+</div>
 
 <script>
 
@@ -53,6 +56,25 @@ let id=(new URL(location)).searchParams.get('id');
 getMovies(id)
 
 $("#movie").on("change",()=>{getDays()});
+
+function booking(){
+    $("#booking,#order").toggle();
+
+    let order={id:$("#movie").val(),
+               date:$("#date").val(),
+               session:$("#session").val()}
+    $.get("api/booking.php",order,(booking)=>{
+        $("#booking").html(booking);
+    })
+}
+
+function reset(){
+    getMovies(id);
+}
+function prev(){
+    $("#booking,#order").toggle();
+    $("#booking").html("");
+}
 
 function getMovies(id){
     
