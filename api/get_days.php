@@ -6,5 +6,6 @@ $gap=($finaldate-strtotime(date("Y-m-d")))/(60*60*24); //前面是秒數所以�
 
 for($i=0;$i<=$gap;$i++){
     $date=date("Y-m-d",strtotime("+$i days")); //0表今天 1明天 2後天
-    echo "<option value='$date'>$date</option>";
+    $dateShow=date("m月d日 l",strtotime("+$i days")); //l星期
+    echo "<option value='$date'>$dateShow</option>";
 }
