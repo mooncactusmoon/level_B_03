@@ -1,6 +1,5 @@
 <!-- 這裡用到的概念是連動式選單****重要 -->
 <h3 class="ct">線上訂票</h3>
-<hr>
 <style>
     #order{
         margin: auto;
@@ -21,6 +20,7 @@
     .sec select{
         width:90%;
     }
+
 </style>
 <!-- 用spa(後端+前端JS) -->
 <div id="order"> 
